@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter Wonderland Sales - Christmas Shopping</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #dc3545;
+            --festive-green: #28a745;
+            --snow-white: #d98537;
+            --dark-bg: #1a1a2e;
+            --card-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; overflow-x: hidden; }
+        
+        /* Snow Animation */
+        .snow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        .snowflake { position: absolute; color: #fff; font-size: 1em; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+        
+        header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 1rem 0; position: sticky; top: 0; z-index: 999; }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .logo { font-size: 2rem; font-weight: bold; color: var(--primary-red); }
+        .cart-btn { background: var(--primary-red); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; }
+        .cart-count { background: var(--festive-green); border-radius: 50%; padding: 0.2rem 0.5rem; font-size: 0.8rem; }
+        
+        .hero { text-align: center; padding: 4rem 2rem; color: white; position: relative; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .sale-badge { background: var(--festive-green); color: white; padding: 1rem 2rem; border-radius: 50px; font-size: 1.5rem; display: inline-block; margin-bottom: 1rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        
+        .products { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+        .products h2 { text-align: center; font-size: 2.5rem; color: white; margin-bottom: 3rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: var(--card-shadow); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 250px; object-fit: cover; }
+        .card-content { padding: 1.5rem; }
+        .sale-tag { background: var(--primary-red); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; position: absolute; top: 10px; right: 10px; }
+        .price { font-size: 1.8rem; font-weight: bold; color: var(--primary-red); margin: 0.5rem 0; }
+        .old-price { text-decoration: line-through; color: #999; margin-left: 0.5rem; }
+        .add-btn { width: 100%; background: var(--festive-green); color: white; border: none; padding: 1rem; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: background 0.3s; }
+        .add-btn:hover { background: #218838; }
+        
+        .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; }
+        .cart-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 2rem; border-radius: 20px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #eee; }
+        .total { font-size: 1.5rem; font-weight: bold; margin-top: 1rem; }
+        .checkout-btn { width: 100%; background: var(--primary-red); color: white; border: none; padding: 1rem; border-radius: 10px; font-size: 1.2rem; cursor: pointer; margin-top: 1rem; }
+        
+        footer { background: var(--dark-bg); color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+        
+        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } .grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } }
+    </style>
+</head>
+<body>
+    <div class="snow" id="snow"></div>
+    
+    <header>
+        <nav>
+            <div class="logo">🎄 Winter Wonderland</div>
+            <button class="cart-btn" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                Cart <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="sale-badge">UP TO 50% OFF CHRISTMAS SALE! 🎁</div>
+        <h1>Shop Festive Deals Now</h1>
+        <p>Ho Ho Ho! Grab gifts before they're gone. Free shipping on orders over $50.</p>
+    </section>
+    
+    <section class="products">
+        <h2>Hot Christmas Deals</h2>
+        <div class="grid" id="productGrid">
+            <!-- Products populated by JS -->
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Winter Wonderland. Merry Christmas! | Built for quick e-commerce fun.[web:7]</p>
+    </footer>
+    
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <h2>Your Cart</h2>
+            <div id="cartItems"></div>
+            <div class="total">Total: $<span id="cartTotal">0</span></div>
+            <button class="checkout-btn" onclick="checkout()">Checkout 🎅</button>
+            <button onclick="toggleCart()" style="margin-top: 1rem; background: #6c757d; color: white; border: none; padding: 0.8rem; border-radius: 10px; cursor: pointer;">Close</button>
+        </div>
+    </div>
+    
+    <script>
+        const products = [
+            { id: 1, name: 'Festive LED Lights', price: 29.99, oldPrice: 49.99, img: 'https://m.media-amazon.com/images/I/61uBrvCoFVL._AC_SL1500_.jpg' },
+            { id: 2, name: 'Santa Wireless Headphones', price: 79.99, oldPrice: 129.99, img: 'https://th.bing.com/th/id/R.d6b1992cda94ae998fecc0601f5b386e?rik=hpJV%2fiRrGWdAcg&riu=http%3a%2f%2fd2b8wt72ktn9a2.cloudfront.net%2fmediocre%2fimage%2fupload%2fc_pad%2cf_auto%2ch_600%2cq_auto%2cw_600%2fihz1nhusuxtrbh0imshj.png&ehk=tslAOB4z4VTgBQfi%2b5ylnFb4YUy8PCUHMdCJWol3NgI%3d&risl=&pid=ImgRaw&r=0' },
+            { id: 3, name: 'Cozy Christmas Sweater', price: 39.99, oldPrice: 69.99, img: 'https://tse1.mm.bing.net/th/id/OIP.JqzKScMgu0IWEiWyZpqXyAHaJQ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3' },
+            { id: 4, name: 'Gift Boxed Chocolates', price: 19.99, oldPrice: 34.99, img: 'https://tse1.mm.bing.net/th/id/OIP.dJijnK2YCZzz2HcD2vUryQHaGB?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3' },
+            { id: 5, name: 'Snow Globe Ornament', price: 14.99, oldPrice: 24.99, img: 'https://www.thebestideasforkids.com/wp-content/uploads/2023/11/Homemade-Snow-Globe-Ornaments.jpg' },
+            { id: 6, name: 'Reindeer Mug Set', price: 24.99, oldPrice: 39.99, img: 'https://tse4.mm.bing.net/th/id/OIP.82A0-75UWSvbgaXcfm_TPAHaHa?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3' }
+        ];
+        
+        let cart = [];
+        
+        // Render products
+        const productGrid = document.getElementById('productGrid');
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <div class="sale-tag">50% OFF</div>
+                <div class="card-content">
+                    <h3>${product.name}</h3>
+                    <div class="price">$${product.price} <span class="old-price">$${product.oldPrice}</span></div>
+                    <button class="add-btn" onclick="addToCart(${product.id})">Add to Cart <i class="fas fa-cart-plus"></i></button>
+                </div>
+            `;
+            productGrid.appendChild(card);
+        });
+        
+        // Cart functions
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const cartItem = cart.find(item => item.id === id);
+            if (cartItem) {
+                cartItem.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCart();
+        }
+        
+        function updateCart() {
+            document.getElementById('cartCount').textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+        }
+        
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+            if (modal.style.display === 'block') renderCart();
+        }
+        
+        function renderCart() {
+            const cartItems = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty. Start shopping! 🎄</p>';
+                totalEl.textContent = '0';
+                return;
+            }
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <span>${item.name} (x${item.qty})</span>
+                    <span>$${(item.price * item.qty).toFixed(2)}</span>
+                </div>
+            `).join('');
+            totalEl.textContent = cart.reduce((sum, item) => sum + (item.price * item.qty), 0).toFixed(2);
+        }
+        
+        function checkout() {
+            if (cart.length === 0) return alert('Cart empty!');
+            alert(`Checkout successful! Total: $${document.getElementById('cartTotal').textContent}. Merry Christmas!`);
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+        
+        // Snow effect
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = '❄️';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = (Math.random() * 0.5 + 0.5) + 'em';
+            document.getElementById('snow').appendChild(snowflake);
+            setTimeout(() => snowflake.remove(), 5000);
+        }
+        setInterval(createSnowflake, 200);
+    </script>
+</body>
+</html>

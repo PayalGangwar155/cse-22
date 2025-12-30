@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Mellow Loaf</title>
+
+  <style>
+    :root {
+      --cream: #f6efe7;
+      --brown: #6b4f3f;
+      --gold: #d8b26e;
+      --green: #6f8f72;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Georgia", serif;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--brown);
+      line-height: 1.6;
+    }
+
+    header {
+      background-image: url("https://images.unsplash.com/photo-1549931319-a545dcf3bc73");
+      background-size: cover;
+      background-position: center;
+      padding: 5rem 1rem;
+      text-align: center;
+      color: white;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    }
+
+    header p {
+      font-size: 1.3rem;
+      margin-top: 0.5rem;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+    }
+
+    nav {
+      background-color: var(--brown);
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: var(--cream);
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 3rem 1.5rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--green);
+      text-align: center;
+    }
+
+    .about-img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1.2rem;
+    }
+
+    footer {
+      background-color: var(--brown);
+      color: var(--cream);
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>The Mellow Loaf</h1>
+    <p>Slow-made bread for soft days and warm nights</p>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#loaves">Our Loaves</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2 class="section-title">Our Story</h2>
+
+    <img
+      src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec"
+      alt="Fresh bread on wooden table"
+      class="about-img"
+    />
+
+    <p>
+      A Mellow Loaf is a small-batch loaf company focused on calm, comfort,
+      and carefully crafted bread. We believe good bread should feel like
+      a deep breath — warm, grounding, and made with care.
+    </p>
+  </section>
+
+  <section id="loaves">
+    <h2 class="section-title">Our Loaves</h2>
+
+    <div class="products">
+
+      <div class="card">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.xgt-taAjQ9WJmxlZXj_5vAHaLH?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Sourdough bread">
+        <div class="card-content">
+          <h3>Golden Sourdough</h3>
+          <p>Slow-fermented, tangy, and crisp on the outside.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff" alt="Oat bread">
+        <div class="card-content">
+          <h3>Honey Oat Loaf</h3>
+          <p>Soft, lightly sweet, and perfect for mornings.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5" alt="Herb bread">
+        <div class="card-content">
+          <h3>Herb Garden Bread</h3>
+          <p>Infused with rosemary and thyme for cozy meals.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Get in Touch</h2>
+    <p style="text-align:center;">
+      Interested in orders, pop-ups, or collaborations?<br />
+      Email us at <strong>hello@amellowloaf.com</strong>
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2025 A Mellow Loaf — All rights reserved</p>
+  </footer>
+
+</body>
+</html>
